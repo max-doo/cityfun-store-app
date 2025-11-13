@@ -1,0 +1,347 @@
+/* Tailwind CSS 指令 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 全局样式配置 */
+@layer base {
+  :root {
+    /* 城市乐园品牌橙色主题 */
+    --primary-color: #ff7b31;
+    --primary-light: #ffbc8f;
+    --primary-dark: #521C0D;
+    
+    /* Ant Design Mobile 主题变量覆盖 */
+    --adm-color-primary: #ff7b31;
+    --adm-color-success: #52c41a;
+    --adm-color-warning: #faad14;
+    --adm-color-danger: #f5222d;
+    --adm-color-text: #333333;
+    --adm-color-text-secondary: #999999;
+    --adm-color-background: #ffffff;
+    --adm-color-border: #e0e0e0;
+    /* 底部 TabBar 高度变量，便于页面其它元素避让 */
+    --tabbar-height: 60px;
+    /* 底部 TabBar 背景颜色 */
+    --tabbar-bg-color: #1A0A00;
+    /* 顶部固定区域高度（PageHeader + Tabs） */
+    --top-fixed-height: 96px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+      'Noto Sans', sans-serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #f5f5f5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: bg-gray-50;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+}
+
+/* 大屏幕样式 */
+@layer utilities {
+  @media (min-width: 768px) {
+    #root {
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  /* 移动端保持全屏 */
+  @media (max-width: 767px) {
+    #root {
+      max-width: 100%;
+      box-shadow: none;
+    }
+  }
+
+  /* 取消对所有弹层的全局定位覆盖，避免破坏 antd-mobile 的居中布局 */
+  /* 如果需要限制某些弹层宽度，请使用组件级容器进行作用域限定（下方已有 date-range-picker-container 的示例） */
+
+  /* 隐藏滚动条但保持滚动功能 */
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+/* 自定义组件样式 */
+@layer components {
+  .page-container {
+    @apply w-full bg-gray-50;
+    /* 统一设置页面容器高度，减去底部导航栏高度 */
+    min-height: calc(100vh - var(--tabbar-height));
+    height: 100%;
+  }
+
+  .page-content {
+    @apply p-3;
+  }
+
+  .section-title {
+    @apply text-base font-semibold text-gray-900 my-4 mx-3;
+  }
+
+  .function-item {
+    @apply flex flex-col items-center py-3 cursor-pointer transition-all active:opacity-70 active:scale-95;
+  }
+
+  /* 增加底部导航栏高度（提高选择器优先级以确保生效） */
+  .custom-tabbar .adm-tab-bar-wrap {
+    height: var(--tabbar-height) !important;
+    min-height: var(--tabbar-height) !important;
+    max-height: var(--tabbar-height) !important;
+    box-sizing: border-box;
+    background-color: var(--tabbar-bg-color) !important;
+    border-top: 1px solid var(--adm-color-border);
+  }
+
+  .custom-tabbar .adm-tab-bar-item {
+    padding-top: 8px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .custom-tabbar .adm-tab-bar-item-icon {
+    font-size: 26px !important;
+    height: 26px !important;
+  }
+
+  .custom-tabbar .adm-tab-bar-item-title {
+    font-size: 13px !important;
+    margin-top: 4px !important;
+  }
+
+  .custom-tabbar .adm-tab-bar-item-title-with-icon {
+    margin-top: 4px !important;
+  }
+
+  /* 统一页面顶部固定的 Tabs 标签栏 */
+  .page-tabs .adm-tabs-header,
+  .page-with-fixed-navbar .adm-tabs-header {
+    position: fixed !important;
+    top: 45px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    background: #ffffff !important;
+    z-index: 500 !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .page-tabs .adm-tabs-tab,
+  .page-with-fixed-navbar .adm-tabs-tab {
+    height: 48px !important;
+    line-height: 48px !important;
+    padding: 0 16px !important;
+  }
+
+  .page-tabs .adm-tabs-tab-title,
+  .page-with-fixed-navbar .adm-tabs-tab-title {
+    font-size: 15px !important;
+  }
+
+  /* 选中状态的标签字体加粗 */
+  .page-tabs .adm-tabs-tab-active,
+  .page-with-fixed-navbar .adm-tabs-tab-active {
+    font-weight: bold !important;
+    border-bottom: 3px solid var(--primary-color) !important;
+  }
+
+  /* 为有固定 Tabs 的页面内容区域添加上边距，避开 NavBar + Tabs */
+  .page-with-fixed-navbar .adm-tabs-content {
+    margin-top: 48px !important;
+    height: calc(100vh - 45px - 48px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* 确保 Tabs Tab 内容可以滚动 */
+  .page-with-fixed-navbar .adm-tabs-tab-content {
+    height: 100% !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* 统一设置所有 NavBar 的背景为白色并固定在顶部 */
+  .adm-nav-bar,
+  .page-container .adm-nav-bar,
+  div.adm-nav-bar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    z-index: 400 !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    color: #3c3c3c !important;
+    font-weight: 600 !important;
+  }
+  
+  .adm-nav-bar-left,
+  .adm-nav-bar-title,
+  .adm-nav-bar-right {
+    background: transparent !important;
+  }
+  
+  /* 特殊处理：如果页面内容区域也需要避让 */
+  .page-container .page-content {
+    position: relative;
+  }
+  
+  /* 为有固定NavBar的页面添加顶部内边距 */
+  .page-with-fixed-navbar {
+    padding-top: 45px !important;
+  }
+}
+
+/* DatePicker 弹出层样式 - 限制在 app 容器宽度内并提高 z-index */
+/* 提高 DatePicker 弹窗的 z-index，确保显示在所有元素之上（包括购物车弹窗） */
+/* antd-mobile 的 Popup 默认 z-index 是 1000，DatePicker 需要更高 */
+.adm-picker-popup,
+.adm-picker-popup-wrap,
+.adm-center-popup,
+.adm-center-popup-wrap,
+body > .adm-picker-popup,
+body > .adm-picker-popup-wrap,
+body > .adm-center-popup-wrap {
+  z-index: 2100 !important;
+}
+
+/* DatePicker 的遮罩层也需要更高的 z-index */
+/* 注意：antd-mobile 的 DatePicker 使用 CenterPopup，遮罩层会自动跟随弹窗的 z-index */
+body > .adm-center-popup-wrap ~ .adm-mask,
+body > .adm-picker-popup-wrap ~ .adm-mask {
+  z-index: 2090 !important;
+}
+
+/* 确保弹窗内容也在最上层 */
+.adm-picker-popup .adm-picker-view,
+.adm-center-popup .adm-picker-view,
+.adm-picker-popup .adm-picker-header,
+.adm-center-popup .adm-picker-header {
+  z-index: 2101 !important;
+  position: relative;
+}
+
+@media (min-width: 481px) {
+  /* 限制在组件容器内的弹窗宽度并居中 */
+  .date-range-picker-container .adm-center-popup {
+    max-width: 480px !important;
+    width: 100% !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+  .date-range-picker-container .adm-center-popup-body {
+    max-width: 480px !important;
+    width: 100% !important;
+  }
+
+  /* 针对body下的所有center-popup */
+  body > .adm-center-popup-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  body > .adm-center-popup-wrap > .adm-center-popup {
+    position: relative !important;
+    max-width: 480px !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+  }
+  
+  body > .adm-center-popup-wrap > .adm-center-popup > .adm-center-popup-body {
+    max-width: 480px !important;
+    width: 100% !important;
+  }
+}
+
+/* 修复：确保 antd-mobile 的 Uploader 与 Toast 图标容器居中显示 */
+/* ImageUploader 上传按钮（+号）在不同重置样式下保持居中 */
+.adm-image-uploader-upload,
+.adm-image-uploader-upload .adm-image-uploader-upload-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Toast 图标容器强制居中，避免受行高/内联元素影响 */
+.adm-toast .adm-toast-icon,
+.adm-toast .adm-toast-icon-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 统一 svg 在组件内的垂直对齐，避免基线导致的轻微偏移 */
+.adm-toast svg,
+.adm-image-uploader svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 强化 Toast 主体的居中布局，修复图标与文本的上下偏移 */
+.adm-toast .adm-toast-main {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Toast 内置图标类（adm-icon）垂直居中与消除行高干扰 */
+.adm-toast .adm-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+/* 自定义表单标签样式 */
+.adm-form-item-label {
+  color: var(--adm-color-text) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+/* 申请类型 Radio 组样式 */
+.application-radio-group .adm-radio {
+  font-size: 14px !important;
+}
+
+.application-radio-group .adm-radio:not(:last-child) {
+  margin-right: 24px !important;
+}
