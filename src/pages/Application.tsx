@@ -458,10 +458,9 @@ const Application: React.FC = () => {
                     <Form.Item
                       name="workExperience"
                       label="相关从业经验"
-                      extra="服务/零售行业等"
                       rules={[{ required: true, message: '请输入相关从业经验' }]}
                     >
-                      <Input placeholder="请输入从业年数" type="number" />
+                      <Input placeholder="请输入从业年数（服务/零售行业等）" type="number" />
                     </Form.Item>
 
                     <Form.Item
@@ -475,7 +474,6 @@ const Application: React.FC = () => {
                     <Form.Item
                       name="teamMembers"
                       label="团队成员信息"
-                      extra="附团队成员意向姓名及分工"
                     >
                       <TextArea
                         placeholder="请输入团队成员意向姓名及分工"
@@ -488,10 +486,9 @@ const Application: React.FC = () => {
                     <Form.Item
                       name="pastCases"
                       label="过往经营案例"
-                      extra="如个体户/合作项目：名称/周期/成果"
                     >
                       <TextArea
-                        placeholder="请输入过往经营案例"
+                        placeholder="请输入过往经营案例，如个体户/合作项目：名称/周期/成果"
                         rows={4}
                         showCount
                         maxLength={1000}
@@ -501,10 +498,9 @@ const Application: React.FC = () => {
                     <Form.Item
                       name="localResources"
                       label="当地资源"
-                      extra="客户/人脉/渠道等"
                     >
                       <TextArea
-                        placeholder="请输入当地资源"
+                        placeholder="请输入当地资源，客户/人脉/渠道等"
                         rows={4}
                         showCount
                         maxLength={1000}

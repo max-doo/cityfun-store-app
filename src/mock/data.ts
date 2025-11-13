@@ -705,7 +705,7 @@ export const userInfo = {
   name: '张经理',
   phone: '13888641234',
   password: '123456',
-  avatar: '/src/img/avatar.png',
+  avatar: avatarPng,
   level: '金牌加盟商',
   storeCount: 3,
   balance: 12900,
@@ -718,19 +718,19 @@ export const financingOptions = [
     id: 1, 
     title: '设备采购分期', 
     desc: '0首付，月供低至3000元', 
-    image: '/src/img/banner.png'
+    image: bannerPng
   },
   { 
     id: 2, 
     title: '经营贷款', 
     desc: '最高100万额度，利率低至4.5%', 
-    image: '/src/img/banner2.png'
+    image: banner2Png
   },
   { 
     id: 3, 
     title: '供应链金融', 
     desc: '灵活周转，随借随还', 
-    image: '/src/img/banner.png'
+    image: bannerPng
   },
 ]
 
@@ -1083,4 +1083,8 @@ export const rentalOrders = [
     ]
   },
 ]
+
+import avatarPng from '../img/avatar.png'
+import bannerPng from '../img/banner.png'
+import banner2Png from '../img/banner2.png'
 
